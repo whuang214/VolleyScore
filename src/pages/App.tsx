@@ -21,5 +21,8 @@ export default function App() {
   const [teamOne, setTeamOne] = useState<Team | null>(null);
   const [teamTwo, setTeamTwo] = useState<Team | null>(null);
 
+  const [teamOneCurrentGameScore, setTeamOneCurrentGameScore] = useState(0);
+  const [teamTwoCurrentGameScore, setTeamTwoCurrentGameScore] = useState(0);
+
   return <h1>Hello World</h1>;
 }
