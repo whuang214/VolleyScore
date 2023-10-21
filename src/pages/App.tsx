@@ -33,7 +33,7 @@ export default function App() {
 
   return (
     <div className="score-container">
-      <Typography variant="h1">Scoreboard</Typography>
+      <Typography variant="h1">VolleyScore</Typography>
       <div className="button-container">
         <div className="score-container">
           <Typography variant="h4">{teamOne.name}</Typography>
