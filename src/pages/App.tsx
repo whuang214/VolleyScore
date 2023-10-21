@@ -32,7 +32,7 @@ export default function App() {
   };
 
   return (
-    <>
+    <div className="score-container">
       <Typography variant="h1">Scoreboard</Typography>
       <div className="button-container">
         <div className="score-container">
@@ -48,6 +48,6 @@ export default function App() {
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 }
