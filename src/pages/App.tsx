@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../styles/App.css";
-import { Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 
 interface Team {
   name: string;
@@ -16,8 +16,12 @@ export default function App() {
     name: "Blue",
     score: 0,
   });
+  const [allowChange, setAllowChange] = useState<boolean>(true);
 
   const incrementTeamOneScore = () => {
+    if (!allowChange) {
+      return;
+    }
     setTeamOne((prevState) => ({
       ...prevState,
       score: prevState.score + 1,
@@ -25,11 +29,47 @@ export default function App() {
   };
 
   const incrementTeamTwoScore = () => {
+    if (!allowChange) {
+      return;
+    }
     setTeamTwo((prevState) => ({
       ...prevState,
       score: prevState.score + 1,
     }));
   };
+
+  const resetScore = () => {
+    setAllowChange(true);
+    setTeamOne((prevState) => ({
+      ...prevState,
+      score: 0,
+    }));
+    setTeamTwo((prevState) => ({
+      ...prevState,
+      score: 0,
+    }));
+    alert("Score has been reset!");
+  };
+
+  // use effect to check if score is 25
+  // if score is 25, check if difference is 2
+  // if difference is 2, set winner
+  // if difference is not 2, continue
+  // if score is not 25, continue
+  useEffect(() => {
+    // Function to check for winner
+    const checkForWinner = (teamOne: Team, teamTwo: Team) => {
+      if (teamOne.score >= 25 && teamOne.score - teamTwo.score >= 2) {
+        alert(`${teamOne.name} wins!`);
+        setAllowChange(false);
+      } else if (teamTwo.score >= 25 && teamTwo.score - teamOne.score >= 2) {
+        alert(`${teamTwo.name} wins!`);
+        setAllowChange(false);
+      }
+    };
+
+    checkForWinner(teamOne, teamTwo);
+  }, [teamOne.score, teamTwo.score]);
 
   return (
     <div className="score-container">
@@ -48,6 +88,9 @@ export default function App() {
           </button>
         </div>
       </div>
+      <button className="reset-button" onClick={resetScore}>
+        Reset
+      </button>
     </div>
   );
 }
